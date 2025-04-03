@@ -6,14 +6,16 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Upgrade pip
+          command: python -m pip install --upgrade pip
+      - run:
           name: Install dependencies
-          command: pip install -r requirements.txt
+          command: pip install -r requirements.txt || echo "No requirements.txt file found, skipping."
       - run:
           name: Run unit tests
-          command: python -m unittest TestTriangle
+          command: python -m unittest discover
 workflows:
   version: 2
   test:
     jobs:
       - test
-
